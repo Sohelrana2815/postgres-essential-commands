@@ -99,14 +99,46 @@ WHERE first_name LIKE '___a_';
 
 SELECT  *
 FROM students
-WHERE first_name LIKE '%l'; -- LIKE are case-sensitive 
+WHERE first_name LIKE '%l'; -- LIKE are case-sensitive
 -- Case insensitive 
 SELECT  *
 FROM students
 WHERE first_name ILIKE '%k';
+--
+LIMIT AND offset it is so important for pagination we will use it for pagination 
+SELECT  *
+FROM students
+LIMIT 5 OFFSET 5;
 
--- Limit and offset it is so important for pagination we will use it for pagination
+SELECT  *
+FROM students
+WHERE country IN ('USA', 'Canada', 'UK')
+LIMIT 3;
+-- Remove some data
+FROM first 
+-- First Page 
+SELECT  *
+FROM students
+LIMIT 5 OFFSET 5 * 0;
 
+SELECT  *
+FROM students
+LIMIT 5 OFFSET 5 * 1;
 
-SELECT * FROM students LIMIT 5;
+SELECT  *
+FROM students
+WHERE country = 'USA';
+--
+DELETE data 
+ DELETE
+FROM students
+WHERE grade = 'C'
+AND country = 'USA';
+-- Update 
+UPDATE students
+SET email = 'default@gmail.com', age = 30, -- multiple attribute
+WHERE student_id = 30;
 
+SELECT  *
+FROM students
+WHERE student_id = 30

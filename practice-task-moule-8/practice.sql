@@ -86,4 +86,51 @@ ALTER TABLE courses
 ALTER TABLE courses
       ADD COLUMN course_id SERIAL PRIMARY KEY
 
-    
+
+
+--
+( SELECT * FROM students WHERE score > 80)
+
+
+
+SELECT * FROM students WHERE NOT department = 'CSE';
+
+SELECT * FROM students 
+        WHERE name LIKE  'A%';
+
+SELECT * FROM students
+         WHERE name ILIKE 'a%';
+
+
+
+
+        
+
+
+
+SELECT * FROM students 
+         WHERE age BETWEEN 18 and 21;
+
+
+
+-- Retrieve rows using IN for a specific set of roll numbers
+
+SELECT * FROM students
+WHERE roll IN (1,10,21,3);
+
+-- Count all rows from students table
+
+SELECT count(*) FROM students;
+
+
+
+
+
+
+
+
+-- WHERE name LIKE 'A%';
+
+-- SELECT *
+-- FROM students
+-- WHERE name ILIKE 'a%';
