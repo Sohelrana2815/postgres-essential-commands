@@ -49,3 +49,10 @@ HAVING avg(age)>20
 SELECT extract(year from dob) as birth_year, count(*)
 FROM students2
 GROUP BY birth_year;
+
+
+
+-- SELECT * FROM POST 
+-- WHERE user_id = 4;
+
+
