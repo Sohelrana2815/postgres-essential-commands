@@ -1,9 +1,4 @@
-
-
-
-
-
--- Creating the departments table 
+-- Active: 1748181214517@@127.0.0.1@5432@ph@public
 
 CREATE TABLE departments (
     department_id SERIAL PRIMARY KEY,
@@ -21,10 +16,57 @@ CREATE TABLE employees (
     hire_date DATE
 );
 
-SELECT * FROM departments;
-SELECT * FROM employees;
-DROP TABLE departments; 
-DROP TABLE employees; 
+
+-- Create Orders table
+
+CREATE TABLE orders (
+    order_id SERIAL PRIMARY KEY,
+    customer_id INT,
+    order_date DATE,
+    total_amount DECIMAL (10,2)
+);
+
+CREATE TABLE customers (
+    customer_id SERIAL PRIMARY KEY,
+    customer_name VARCHAR(50)
+);
+
+
+-- Inserting sample data into the orders table
+INSERT INTO orders (customer_id, order_date, total_amount) VALUES
+    (1, '2022-01-05', 100.50),
+    (2, '2022-01-07', 200.75),
+    (1, '2022-01-08', 150.25),
+    (3, '2022-01-10', 300.00),
+    (2, '2022-01-15', 180.50),
+    (3, '2022-01-20', 220.25),
+    (1, '2022-01-25', 90.00),
+    (2, '2022-01-28', 120.75),
+    (3, '2022-02-01', 250.50),
+    (1, '2022-02-05', 180.25),
+    (3, '2022-02-05', 180.25);
+
+INSERT INTO customers (customer_name) VALUES
+('John Doe'),
+('John Smith'),
+('Alice Johnson'),
+('Michael Brown'),
+('Emily Davis'),
+('David Wilson'),
+('Sophia Miller'),
+('James Anderson'),
+('Olivia Martinez'),
+('William Clark'),
+('Emma Thompson');
+
+
+
+
+
+
+
+
+
 
 
 
@@ -90,8 +132,73 @@ INSERT INTO employees (employee_name,department_id,salary,hire_date) VALUES
 
 
 SELECT * FROM employees
-JOIN departments
+JOIN departments ON employees.department_id = departments.department_id;
+
+-- Another way
+
+SELECT * FROM employees
+JOIN departments USING(department_id);
 
 
 
 
+
+-- 2. Department name with avg salary
+
+SELECT department_name, round(avg(salary)) as avg_salary FROM employees
+JOIN departments USING(department_id)
+GROUP BY department_name
+
+
+
+SELECT department_name, count(employee_id) FROM employees
+JOIN departments USING(department_id)
+GROUP BY department_name
+
+
+
+SELECT department_name, round(avg(salary)) as avg_salary FROM employees
+JOIN departments USING(department_id)
+GROUP BY department_name
+ORDER BY avg_salary DESC
+LIMIT 1
+
+
+
+
+
+
+SELECT extract( YEAR from hire_date) as hire_year, count(*) FROM employees
+GROUP BY hire_year;
+
+
+
+
+SELECT * FROM orders;
+select * from employees;
+SELECT * FROM customers;
+
+SELECT * FROM departments
+
+DROP TABLE departments; 
+DROP TABLE employees; 
+DROP TABLE orders; 
+DROP TABLE customers; 
+
+
+
+
+SELECT customer_name, round(sum(total_amount)) as spent_by_customer FROM orders
+JOIN customers USING(customer_id)
+GROUP BY customer_name
+
+
+select customer_id, count(order_id) as orders,sum(total_amount) as total_spent FROM orders GROUP BY customer_id HAVING count(order_id) >2;
+
+
+
+
+
+
+
+select extract(month from order_date) as month, sum(total_amount) from orders WHERE extract(year from order_date) = 2022 GROUP BY month;
