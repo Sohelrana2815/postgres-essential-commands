@@ -49,3 +49,49 @@ SELECT max(salary) as highest_salary FROM employees WHERE department_name = 'HR'
 
 
 SELECT * FROM employees WHERE salary > (SELECT max(salary) as highest_salary FROM employees WHERE department_name = 'HR')
+
+-- Can return a single value
+-- Can return multiple rows
+-- Can return single column
+
+-- We can use subquery
+
+SELECT -- We need to use those subquery which are return single value
+FROM
+WHERE
+-- more...
+
+SELECT *, (SELECT sum(salary) as sum_of_all_employees_salary FROM employees) FROM employees
+
+
+-- Find sum of every department employees salary
+
+(SELECT department_name, sum(salary) FROM employees GROUP BY department_name)
+
+SELECT * FROM  -- Outer query / main query
+(SELECT department_name, sum(salary)FROM employees GROUP BY department_name);
+
+
+SELECT * FROM employees 
+WHERE 
+salary > (SELECT max(salary) FROM employees WHERE department_name = 'HR')
+
+SELECT employee_name, salary, department_name
+FROM employees
+WHERE department_name IN
+(SELECT department_name FROM employees WHERE department_name LIKE '%R%')
+
+SELECT department_name FROM employees WHERE department_name LIKE '%R%'
+
+
+-- Make a view
+
+CREATE VIEW test_view
+AS
+SELECT employee_name, salary, department_name
+FROM employees
+WHERE department_name IN
+(SELECT department_name FROM employees WHERE department_name LIKE '%R%')
+
+
+SELECT * FROM test_view
